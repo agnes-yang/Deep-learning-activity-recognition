@@ -1,6 +1,6 @@
 config_info = {
-    'data_folder': 'Your data_har.npy folder/',
-    'data_folder_raw': 'Your raw data folder/',
+    'data_folder': '../data/',
+    'data_folder_raw': '../data/',
     'result_file': 'result.csv',
     'epoch': 150,
     'lr': 0.01,
