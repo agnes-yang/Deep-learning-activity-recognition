@@ -26,7 +26,8 @@ def get_args():
     parser.add_argument('--batchsize', type=int, default=128)
     parser.add_argument('--lr', type=float, default=.01)
     parser.add_argument('--momentum', type=float, default=.9)
-    parser.add_argument('--data_folder', type=str, default='../')
+    parser.add_argument('--data_folder', type=str, default='../data/')
+    parser.add_argument('--result_folder', type=str, default='../results/')
     parser.add_argument('--seed', type=int, default=10)
     args = parser.parse_args()
     return args
@@ -78,8 +79,8 @@ def valid(model, test_loader):
     return acc_test
 
 
-def plot():
-    data = np.loadtxt('result.csv', delimiter=',')
+def plot(result_folder):
+    data = np.loadtxt(result_folder + 'result.csv', delimiter=',')
     plt.figure()
     plt.plot(range(1, len(data[:, 0]) + 1),
              data[:, 0], color='blue', label='train')
@@ -89,7 +90,7 @@ def plot():
     plt.xlabel('Epoch', fontsize=14)
     plt.ylabel('Accuracy (%)', fontsize=14)
     plt.title('Train and Test Accuracy', fontsize=16)
-    plt.savefig('plot.png')
+    plt.savefig(result_folder + 'plot.png')
 
 
 if __name__ == '__main__':
@@ -102,5 +103,5 @@ if __name__ == '__main__':
     ), lr=args.lr, momentum=args.momentum)
     train(model, optimizer, train_loader, test_loader)
     result = np.array(result, dtype=float)
-    np.savetxt('result.csv', result, fmt='%.2f', delimiter=',')
-    plot()
+    np.savetxt(args.result_folder + 'result.csv', result, fmt='%.2f', delimiter=',')
+    plot(args.result_folder)
